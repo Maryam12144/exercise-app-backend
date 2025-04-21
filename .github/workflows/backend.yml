@@ -47,6 +47,10 @@ jobs:
           echo "DB_USERNAME=root" >> .env
           echo "DB_PASSWORD=root" >> .env
 
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          sleep 15  # Adjust this if needed, 15 seconds should suffice for most cases
 
       - name: Generate application key
         run: php artisan key:generate
