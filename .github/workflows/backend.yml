@@ -38,9 +38,12 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Copy .env.example
+        run: cp .env.example .env
+
       - name: Set environment variables
         run: |
-          echo "DB_CONNECTION=mysql" > .env
+          echo "DB_CONNECTION=mysql" >> .env
           echo "DB_HOST=127.0.0.1" >> .env
           echo "DB_PORT=3306" >> .env
           echo "DB_DATABASE=laravel" >> .env
@@ -52,9 +55,6 @@ jobs:
           echo "Waiting for MySQL to be ready..."
           sleep 15
 
-      - name: Create .env file
-        run: cp .env.example .env
-
       - name: Generate application key
         run: php artisan key:generate
 
@@ -63,4 +63,3 @@ jobs:
 
       - name: Run tests
         run: php artisan test
-
